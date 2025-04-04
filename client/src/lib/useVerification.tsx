@@ -29,26 +29,35 @@ export function VerificationProvider({ children }: { children: ReactNode }) {
   
   const completeVerification = async (walletAddress?: string) => {
     try {
+      // 先设置本地存储，确保其他组件可以读取到状态
+      localStorage.setItem("isVerified", "true");
+      
       if (walletAddress) {
-        // Call API to record verification
+        console.log("Verifying wallet address:", walletAddress);
         await apiRequest("/api/verify", "POST", { walletAddress });
         localStorage.setItem("walletAddress", walletAddress);
       }
       
-      // Update state and local storage
+      // 更新状态
       setIsVerified(true);
       setShowingQR(false);
-      localStorage.setItem("isVerified", "true");
       
-      // Navigate to swap page
-      navigate("/swap");
+      // 使用 Promise 和 setTimeout 确保状态更新完成
+      await new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 100);
+      });
+      
+      return true; // 返回成功状态
     } catch (error) {
-      console.error("Error during verification:", error);
-      // If API call fails, we'll still set local verification for demo
-      setIsVerified(true);
+      console.error("验证过程出错:", error);
+      // 清除所有状态
+      setIsVerified(false);
       setShowingQR(false);
-      localStorage.setItem("isVerified", "true");
-      navigate("/swap");
+      localStorage.removeItem("isVerified");
+      localStorage.removeItem("walletAddress");
+      return false;
     }
   };
   
