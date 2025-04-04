@@ -1,0 +1,79 @@
+Please continue working on the existing GateSwap dApp without changing its current architecture or file structure.
+Only add new features and logic. Keep all previously created components and pages as-is, such as VerificationCard, SwapCard, useVerification, etc.
+
+Now implement the following enhancements:
+
+✅ 1. Serverless API for Verification & Task Progress
+Create a new API route at /api/verify:
+
+Accepts a walletAddress in the body and returns { verified: true }.
+
+Simulates the Self Protocol verification.
+
+Create another API route at /api/task-status:
+
+Returns a JSON object like { verified: true, taskCompleted: true } based on localStorage/session (or simulated logic).
+
+Represents whether the user has:
+
+✅ Completed identity verification
+
+✅ Successfully performed at least one swap
+
+🧠 2. Client-side State Hook Enhancements
+Extend the existing useVerification hook or create a useTaskProgress hook:
+
+Track verified status from localStorage or API
+
+Track taskCompleted after user finishes a swap
+
+After a successful swap:
+
+Call setTaskCompleted(true)
+
+Redirect the user to a new /success page
+
+🎉 3. New Success Page (/success)
+Add a page at /success that:
+
+Confirms task completion with a celebratory message like:
+
+"🎉 You have successfully completed the GateSwap mission!"
+
+Includes buttons to return to home or view portfolio
+
+📱 4. Device-aware Verification Flow
+On the /verify page, detect the user's device:
+
+If desktop:
+
+Show a QR code using Self SDK for mobile scanning
+
+If mobile:
+
+Show a button that opens a Self App deep link (e.g., self://verify?taskId=123)
+
+💡 5. Add Tooltips to Swap UI
+In the /swap page:
+
+Add info icons (ℹ️) near key fields like:
+
+Slippage
+
+Estimated gas
+
+Minimum received
+
+On hover or click, show a tooltip explaining each item. Example:
+
+“Minimum received is the lowest amount you’re guaranteed due to slippage tolerance.”
+
+📘 6. Update README for Hackathon context
+Clearly explain that this project uses localStorage to simulate backend state (no DB required).
+
+Explain /api/verify and /api/task-status are mock APIs for hackathon demonstration.
+
+Provide instructions to run the project locally (e.g., npm run dev)
+
+✅ The Goal
+Simulate a full "Verification → Swap → Reward" experience using real Web3 infrastructure (1inch API, Self SDK), while using simplified mock backend logic (localStorage & mock APIs) to deliver a realistic demo flow for ETHGlobal or other hackathon events.

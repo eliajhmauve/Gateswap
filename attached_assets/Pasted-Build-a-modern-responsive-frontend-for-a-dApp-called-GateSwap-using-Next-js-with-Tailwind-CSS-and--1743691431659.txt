@@ -1,0 +1,73 @@
+Build a modern, responsive frontend for a dApp called GateSwap, using Next.js with Tailwind CSS and RainbowKit for wallet connection.
+Follow these specifications carefully:
+
+✅ 1. Landing Page & Verification Flow (Self Protocol)
+When a user visits /, they should see only a centered “Start Verification” button inside a glassmorphic animated card.
+
+Once clicked, generate and show a QR code from the Self Protocol SDK for the user to scan with their mobile Self app.
+
+Upon successful verification:
+
+Bind the identity to the user's wallet address (consider limiting wallet count per identity to prevent sybil attacks).
+
+Store verification status in localStorage or app state.
+
+Redirect to /swap.
+
+🚫 2. Route Protection
+Users must not be able to access /swap, /portfolio, or connect wallet before completing verification.
+
+All protected routes should automatically redirect to /verify if the user is not verified.
+
+🔒 3. Global Layout
+Include a top header or badge showing Verification Status (e.g., "Verified ✅" or "Unverified 🔒").
+
+Show wallet connect button only after the user is verified.
+
+All UI should follow dark mode, glassmorphism, and Uniswap-inspired styling.
+
+🔄 4. Swap UI (1inch API integration)
+Build a /swap-ui page that connects to your serverless API at /api/quote.
+
+Provide a form to input:
+
+From Token
+
+To Token
+
+Amount
+
+When the user clicks “Get Quote”, call /api/quote?fromToken=...&toToken=...&amount=....
+
+Display:
+
+Expected output token amount
+
+Estimated gas
+
+Route path
+
+📘 5. Educational Overlay
+Each field (like "Minimum Received", "Gas", "Slippage") should have tooltips or info bubbles explaining its meaning.
+
+Example: "Minimum Received – this is the worst-case amount you'll get due to slippage".
+
+💡 6. Deployment-Ready
+Use serverless API compatible with Vercel (e.g., /api/quote.js) that connects to 1inch Developer API with environment variable ONEINCH_API_KEY.
+
+The code should be production-ready with a working README and support for .env.local.
+
+📦 Stack & Design
+Next.js (App Router or Pages)
+
+Tailwind CSS with glassmorphism and subtle animations
+
+RainbowKit for wallet connection (post-verification only)
+
+Self Protocol SDK for identity verification
+
+1inch API for quoting swap prices
+
+Vercel serverless API integration (/api/quote)
+
+🏁 The goal is to deliver a fully working gated dApp experience where identity verification unlocks swap features, following best practices in Web3 onboarding UX.
