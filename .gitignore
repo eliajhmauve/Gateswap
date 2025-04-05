@@ -1,6 +1,23 @@
+# Dependencies
 node_modules
 dist
-.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*/**/.env
+
+# Build files
+dist
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# OS files
+.DS_Store
+
+# Backup files
+*.OLD
+*.backup
+*.bak
